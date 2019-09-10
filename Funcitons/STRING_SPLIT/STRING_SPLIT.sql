@@ -3,7 +3,7 @@
 -- =============================================================================
 --  Author        : Andriy Oseledko
 --  Creation date : 10.09.2019
---  Modifications : 
+--  Modifications : 10.09.2019
 -- =============================================================================
 --  Description   : Table-valued function that splits a string into rows of
 --                : substrings, based on a specified separator expression.
@@ -40,7 +40,7 @@ CREATE OR REPLACE TYPE T_STRING_SPLIT_VALUES IS TABLE OF VARCHAR2(32767);
 
 CREATE OR REPLACE FUNCTION STRING_SPLIT (p_src_str   IN CLOB,
                                          p_val_sep   IN VARCHAR2,
-                                         p_trim_mode  IN PLS_INTEGER DEFAULT 0,
+                                         p_trim_mode IN PLS_INTEGER DEFAULT 0,
                                          p_trim_symb IN VARCHAR2 DEFAULT ' ')
 RETURN T_STRING_SPLIT_VALUES
     PIPELINED
