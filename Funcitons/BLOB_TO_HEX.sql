@@ -4,7 +4,7 @@
 --  Author        : Andriy (Andrii) Oseledko
 --  Version       : 1.1
 --  Creation date : 19.08.2019
---  Modifications : 02.10.2019
+--  Last modified : 02.10.2019
 -- =============================================================================
 --  Description   : Converts BLOB binary data into hexadecimal representation.
 --                : Each byte is represented by two hexadecimal (HEX) digits.

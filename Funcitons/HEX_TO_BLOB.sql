@@ -4,7 +4,7 @@
 --  Author        : Andriy (Andrii) Oseledko
 --  Version       : 1.1
 --  Creation date : 18.08.2019
---  Modifications : 02.10.2019
+--  Last modified : 02.10.2019
 -- =============================================================================
 --  Description   : Converts CLOB containing hexadecimal representation (HEX)
 --                : of binary data into BLOB value.

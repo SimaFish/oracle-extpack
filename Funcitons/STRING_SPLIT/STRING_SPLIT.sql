@@ -4,7 +4,7 @@
 --  Author        : Andriy (Andrii) Oseledko
 --  Version       : 1.0
 --  Creation date : 10.09.2019
---  Modifications : 10.09.2019
+--  Last modified : 10.09.2019
 -- =============================================================================
 --  Description   : Table-valued function that splits a string into rows of
 --                : substrings, based on a specified separator expression.
@@ -47,13 +47,13 @@ RETURN T_STRING_SPLIT_VALUES
     PIPELINED
     DETERMINISTIC
 AS
-    v_value VARCHAR2(32767);
-    v_symb_amt SIMPLE_INTEGER := 0;
-    v_prev_pos SIMPLE_INTEGER := 0;
-    v_next_pos SIMPLE_INTEGER := 0;
-    c_sep_len CONSTANT SIMPLE_INTEGER := NVL(LENGTH(p_val_sep), 0);
+    v_value        VARCHAR2(32767);
+    v_symb_amt     SIMPLE_INTEGER := 0;
+    v_prev_pos     SIMPLE_INTEGER := 0;
+    v_next_pos     SIMPLE_INTEGER := 0;
+    c_sep_len      CONSTANT SIMPLE_INTEGER := NVL(LENGTH(p_val_sep), 0);
     c_trim_symblen CONSTANT SIMPLE_INTEGER := NVL(LENGTH(p_trim_symb), 0);
-    c_src_strlen CONSTANT SIMPLE_INTEGER := NVL(LENGTH(p_src_str), 0);
+    c_src_strlen   CONSTANT SIMPLE_INTEGER := NVL(LENGTH(p_src_str), 0);
 BEGIN
     IF c_sep_len = 0 AND c_src_strlen <> 0
     THEN
@@ -76,7 +76,7 @@ BEGIN
             v_symb_amt := v_next_pos - v_prev_pos;
             IF v_symb_amt > 32767
             THEN
-                RAISE_APPLICATION_ERROR(-20200, 'Source string contains delimiters that are more than 32767 characters apart');
+                RAISE_APPLICATION_ERROR(-20200, 'Source string contains delimiters that are more than 32767 characters apart.');
             END IF;
 
             v_value := SUBSTR(p_src_str, v_prev_pos, v_symb_amt);
