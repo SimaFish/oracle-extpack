@@ -5,6 +5,7 @@
 --  Version       : 1.1
 --  Creation date : 19.08.2019
 --  Last modified : 02.10.2019
+--  Language      : Oracle PL/SQL, SQL
 -- =============================================================================
 --  Description   : Converts BLOB binary data into hexadecimal representation.
 --                : Each byte is represented by two hexadecimal (HEX) digits.

@@ -5,6 +5,7 @@
 --  Version       : 1.0
 --  Creation date : 10.09.2019
 --  Last modified : 10.09.2019
+--  Language      : Oracle PL/SQL, SQL
 -- =============================================================================
 --  Description   : Table-valued function that splits a string into rows of
 --                : substrings, based on a specified separator expression.

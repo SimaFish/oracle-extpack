@@ -5,6 +5,7 @@
 --  Version       : 1.0
 --  Creation date : 03.10.2019
 --  Last modified : 03.10.2019
+--  Language      : Oracle PL/SQL, SQL
 -- =============================================================================
 --  Description   : Converts BLOB binary data into CLOB string.
 --                : 

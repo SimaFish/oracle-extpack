@@ -5,6 +5,7 @@
 --  Version       : 1.1
 --  Creation date : 18.08.2019
 --  Last modified : 02.10.2019
+--  Language      : Oracle PL/SQL, SQL
 -- =============================================================================
 --  Description   : Converts CLOB containing hexadecimal representation (HEX)
 --                : of binary data into BLOB value.
