@@ -1,53 +1,53 @@
 -- =============================================================================
---  Function      : BLOB_TO_CLOB
+--  Function      : CLOB_TO_BLOB
 -- =============================================================================
 --  Author        : Andriy (Andrii) Oseledko
 --  Version       : 1.0
---  Creation date : 03.10.2019
---  Last modified : 03.10.2019
+--  Creation date : 04.10.2019
+--  Last modified : 04.10.2019
 --  Language      : Oracle PL/SQL, SQL
 -- =============================================================================
---  Description   : Converts BLOB binary data into CLOB string.
+--  Description   : Converts CLOB string into BLOB binary data.
 --                : 
---                : The function converts the binary data (BLOB) in the source
---                : instance to character data using the character set you
---                : specify, writes the character data to a destination CLOB.
+--                : The function converts the source string (CLOB) in the source
+--                : instance to binary data (BLOB) using the character set you
+--                : specify, writes the resulting data to a destination BLOB.
 -- =============================================================================
---  Parameters    : > p_blob_val:
---                : Any non-null BLOB hexadecimal value to convert into CLOB.
---                : If source BLOB is NULL - an empty CLOB instance is returned.
+--  Parameters    : > p_clob_val:
+--                : Any non-null CLOB hexadecimal value to convert into BLOB.
+--                : If source CLOB is NULL - an empty BLOB instance is returned.
 --                : ------------------------------------------------------------
 --                : > p_blob_csid:
---                : Character set of the source data passed in the source BLOB.
+--                : Character set of the source data passed in the source CLOB.
 --                : Use NLS_CHARSET_ID built-in function to determine the
 --                : charset id by charset name.
 --                : 
 --                : If no character set id is specified, the function assumes
---                : that the BLOB contains data encoded in the default
+--                : that the CLOB contains character data encoded in the default
 --                : database character set.
 -- =============================================================================
 
-CREATE OR REPLACE FUNCTION BLOB_TO_CLOB (p_blob_val  IN BLOB,
+CREATE OR REPLACE FUNCTION CLOB_TO_BLOB (p_clob_val  IN CLOB,
                                          p_blob_csid IN NUMBER DEFAULT NULL)
-RETURN CLOB
-IS
+RETURN BLOB
+AS
     v_warning     PLS_INTEGER;
     v_src_offset  SIMPLE_INTEGER := 1;
     v_dest_offset SIMPLE_INTEGER := 1;
-    v_clob_val    CLOB           := EMPTY_CLOB();
+    v_blob_val    BLOB           := EMPTY_BLOB();
     v_lang_ctx    PLS_INTEGER    := DBMS_LOB.DEFAULT_LANG_CTX;
     v_blob_csid   NUMBER         := NVL(p_blob_csid, DBMS_LOB.DEFAULT_CSID);
 BEGIN
-    IF p_blob_val IS NOT NULL THEN
-        DBMS_LOB.CREATETEMPORARY(lob_loc => v_clob_val,
+    IF p_clob_val IS NOT NULL THEN
+        DBMS_LOB.CREATETEMPORARY(lob_loc => v_blob_val,
                                  cache   => FALSE,
                                  dur     => DBMS_LOB.CALL);
 
-        DBMS_LOB.CONVERTTOCLOB(dest_lob     => v_clob_val,
-                               src_blob     => p_blob_val,
+        DBMS_LOB.CONVERTTOBLOB(dest_lob     => v_blob_val,
+                               src_clob     => p_clob_val,
                                amount       => DBMS_LOB.LOBMAXSIZE,
                                dest_offset  => v_dest_offset,
-                               src_offset   => v_src_offset,
+                               src_offset   => v_src_offset, 
                                blob_csid    => v_blob_csid,
                                lang_context => v_lang_ctx,
                                warning      => v_warning);
@@ -57,7 +57,7 @@ BEGIN
         END IF;
     END IF;
 
-    RETURN v_clob_val;
+    RETURN v_blob_val;
 EXCEPTION
     WHEN DBMS_LOB.INVALID_ARGVAL THEN
         RAISE_APPLICATION_ERROR(-20200, 'Invalid or unsupported character set, CSID: ' || v_blob_csid || '.');
