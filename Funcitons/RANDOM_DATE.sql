@@ -2,7 +2,7 @@
 --  Function      : RANDOM_DATE
 -- =============================================================================
 --  Author        : Andriy (Andrii) Oseledko
---  Version       : 1.0
+--  Version       : 1.1
 --  Creation date : 03.10.2019
 --  Last modified : 07.08.2020
 --  Language      : Oracle PL/SQL, SQL
