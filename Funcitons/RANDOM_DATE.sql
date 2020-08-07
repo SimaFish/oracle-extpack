@@ -4,11 +4,11 @@
 --  Author        : Andriy (Andrii) Oseledko
 --  Version       : 1.0
 --  Creation date : 03.10.2019
---  Last modified : 03.10.2019
+--  Last modified : 07.08.2020
 --  Language      : Oracle PL/SQL, SQL
 -- =============================================================================
---  Description   : This function generates a random DATE value, greater than or
---                : equal to `p_date_start` and less than `p_date_end`.
+--  Description   : This function generates a random DATE value in a range
+--                : between `p_date_start` and `p_date_end` (inclusively).
 -- =============================================================================
 --  Parameters    : > p_date_start:
 --                : Start date, the left boundary in a range from which
@@ -25,13 +25,8 @@ CREATE OR REPLACE FUNCTION RANDOM_DATE (p_date_start IN DATE DEFAULT NULL,
                                         p_date_end   IN DATE DEFAULT NULL)
 RETURN DATE
 IS
-    v_date_start DATE;
-    v_date_end   DATE;
 BEGIN
-    v_date_start := NVL(p_date_start, TO_DATE('01.01.0001', 'DD.MM.YYYY'));
-    v_date_end := NVL(p_date_end, TO_DATE('31.12.9999', 'DD.MM.YYYY'));
-
-    RETURN TO_DATE(TRUNC(DBMS_RANDOM.VALUE(TO_CHAR(v_date_start, 'J'),
-                                           TO_CHAR(v_date_end, 'J'))), 'J');
+    RETURN TO_DATE(TRUNC(DBMS_RANDOM.VALUE(TO_CHAR(COALESCE(p_date_start, DATE '0001-01-01'), 'J'),
+                                           TO_CHAR(COALESCE(p_date_end, DATE '9999-12-31'), 'J'))), 'J');
 END RANDOM_DATE;
 /
